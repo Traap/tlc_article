@@ -24,7 +24,6 @@
 \RequirePackage{lmodern}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
-\RequirePackage[utf8]{inputenc}
 
 % ------------------------------------------------------------------------------
 % Color, Graphics and links.
@@ -87,12 +86,25 @@
 % tlcBeginLandscape and tlcEndLandscape are two new commands used to simplify
 % setting page orientation to landscape and consistently setting margins.
 \newcommand{\tlcBeginLandscape}{%
-  \begin{landscape}%
-  \newgeometry{top=1in, bottom=1in,left=1in,right=1in}%
+  \newpage%
+  \paperwidth=\pdfpageheight%
+  \paperheight=\pdfpagewidth%
+  \pdfpageheight=\paperheight%
+  \pdfpagewidth=\paperwidth%
+  \headwidth=\textheight%
+  \begingroup%
+  \vsize=\paperwidth%
+  \hsize=\textheight%
 }%
+
 \newcommand{\tlcEndLandscape}{%
-  \restoregeometry%
-  \end{landscape}%
+  \endgroup
+  \newpage
+  \paperwidth=\pdfpageheight
+  \paperheight=\pdfpagewidth
+  \pdfpageheight=\paperheight
+  \pdfpagewidth=\paperwidth
+  \headwidth=\textwidth
 }
 
 % ------------------------------------------------------------------------------
@@ -107,7 +119,7 @@
   {}
 
 % ------------------------------------------------------------------------------
-% Create a beautiful document header and document footer using the packages 
+% Create a beautiful document header and document footer using the packages
 % listed below.
 \RequirePackage{fancyhdr}   % Page layout in \LaTeX
 \RequirePackage{titling}    % Control over \maketitle & \thanks
@@ -133,14 +145,14 @@
 % ------------------------------------------------------------------------------
 % Define extractions macros when \tlc@versionFile exists.
 \IfFileExists{\tlc@versionFile}
-{ 
+{
   \def\tlc@version{\tlcVersionPart{\version}}
   \def\tlc@date{\tlcVersionPart{\date}}
   \def\tlc@status{\tlcVersionPart{\status}}
   \def\tlc@institution{\tlcVersionPart{\institution}}
   \def\tlc@permission{\tlcVersionPart{\permission}}
 }
-{% Else: no operation because tlc@versionFile does not exist. 
+{% Else: no operation because tlc@versionFile does not exist.
 }
 
 % ------------------------------------------------------------------------------
@@ -149,19 +161,19 @@
 \IfFileExists{\tlc@headerFooter}
 { % use the customer header and footer defined by \tlc@headerfooter
  \input{\tlc@headerFooter}
-}  
+}
 { % Else : header and footer applied to all pages.
   \IfFileExists{\tlc@logoFile}
-  { % Typeset the logo in the left side of the document header. 
+  { % Typeset the logo in the left side of the document header.
     \lhead{\includegraphics[width=3cm,height=1cm]{\tlc@logoFile}}
   }
   {% Else: no operation because tlc@logoFile does not exist.
   }
   % Typeset the title in the center of the document header.
   \chead{\large{\thetitle}}
-  % Typeset version information in the right side of the document header. 
+  % Typeset version information in the right side of the document header.
   \IfFileExists{\tlc@versionFile}
-  { 
+  {
     % document status, document date and document version.
     \rhead{\tiny \tlc@status \\ \tlc@date \\ \tlc@version}
     % document owner.  This maybe a person or company name.
@@ -169,7 +181,7 @@
     % document license. This maybe a license or word like confidential.
     \cfoot{\tiny \tlc@permission}
   }
-  {% Else: no operation because tlc@versionFile does not exist. 
+  {% Else: no operation because tlc@versionFile does not exist.
   }
   \renewcommand{\headrulewidth}{0.1pt}
   % eliminate head height too small warning, which is occurring because
@@ -211,7 +223,7 @@
 }
 
 % ------------------------------------------------------------------------------
-% We define colors that are used when includeing code files (software). 
+% We define colors that are used when includeing code files (software).
 \lstdefinestyle{tlcStyle}{
         backgroundcolor=\color{backcolour},
         commentstyle=\color{codegreen},
@@ -259,7 +271,7 @@
 
 % ------------------------------------------------------------------------------
 % We define tlcDebug to aid our users when they are debugging their document.
-% tlcDebug should be placed at the end of your document to allow LaTeX to 
+% tlcDebug should be placed at the end of your document to allow LaTeX to
 % fully expand all macros and definitions.
 \newcommand{\tlcIsDefined}[1]%
 {\IfFileExists{#1}%

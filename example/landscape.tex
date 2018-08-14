@@ -1,0 +1,64 @@
+\documentclass[12pt]{tlc-article}
+
+\usepackage{lipsum}
+
+\newcommand\mySubsection[1]{%
+  \subsection{#1}%
+  \lipsum[#1]%
+}%
+
+\begin{document}
+  \tlcTitlePageAndTableOfContents
+    {Example portrait and Landscape Report}
+    {Gary A. Howard}
+    {This report demonstrates switching back and forth between portrait and
+    landscape layout.}
+
+  \section{This is my portrait page.}
+  \mySubsection{1}
+  \mySubsection{2}
+  \mySubsection{3}
+  \mySubsection{4}
+  \mySubsection{5}
+  \mySubsection{6}
+  \mySubsection{7}
+  \mySubsection{8}
+  \mySubsection{9}
+
+  \tlcBeginLandscape
+  \section{This is my landscape page.}
+  \mySubsection{1}
+  \mySubsection{2}
+  \mySubsection{3}
+  \mySubsection{4}
+  \mySubsection{5}
+  \mySubsection{6}
+  \mySubsection{7}
+  \mySubsection{8}
+  \mySubsection{9}
+
+  \newpage
+  \section{This is my 2nd landscape page.}
+  \mySubsection{1}
+  \mySubsection{2}
+  \mySubsection{3}
+  \mySubsection{4}
+  \mySubsection{5}
+  \mySubsection{6}
+  \mySubsection{7}
+  \mySubsection{8}
+  \mySubsection{9}
+
+  \tlcEndLandscape
+  \section{This is my portrait page again.}
+  \mySubsection{1}
+  \mySubsection{2}
+  \mySubsection{3}
+  \mySubsection{4}
+  \mySubsection{5}
+  \mySubsection{6}
+  \mySubsection{7}
+  \mySubsection{8}
+  \mySubsection{9}
+
+\end{document}

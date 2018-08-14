@@ -1,0 +1,20 @@
+% Hook into this document's version information.
+\input{data/version.tex}
+
+% Header applied to all documents.
+\makeatletter
+\lhead{\includegraphics[width=3cm, height=1cm]{data/logo.png}}
+\chead{\large\thetitle}
+
+\rhead{\tiny\hfStatus\\\hfDate\\\hfVersion}
+\renewcommand{\headrulewidth}{0.1pt}
+
+% Eliminate headheight too small warning, which is occurring because
+% we are using an image to our header.
+\setlength\headheight{52pt}
+
+% Footer applied to all documents.
+\lfoot{\tiny\hfInstitution}
+\cfoot{\tiny\hfPermission}
+\rfoot{\tiny\ Page \thepage~of~\pageref{LastPage}}
+\renewcommand{\footrulewidth}{0.1pt}
